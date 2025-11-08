@@ -319,20 +319,6 @@ npm run preview
 npm run lint
 ```
 
-### Boas Práticas
-
-1. **Backend**
-   - Use type hints em Python
-   - Documente funções com docstrings
-   - Siga PEP 8 para estilo de código
-   - Crie testes para novas funcionalidades
-
-2. **Frontend**
-   - Use TypeScript para type safety
-   - Componentes devem ser reutilizáveis
-   - Siga as convenções do React
-   - Mantenha os componentes pequenos e focados
-
 ### Gerando Dados Mockados
 
 O projeto inclui um gerador de dados mockados para desenvolvimento:
@@ -343,19 +329,6 @@ python GenerateMockData.py
 ```
 
 Isso irá gerar arquivos JSON em `backend/mock_data/` com dados simulados.
-
-## 📝 Scripts Disponíveis
-
-### Backend
-```bash
-# Executar servidor em modo desenvolvimento
-uvicorn main:app --reload
-
-# Executar em uma porta específica
-uvicorn main:app --reload --port 8080
-
-# Executar testes
-python -m pytest
 ```
 
 ### Frontend
@@ -373,72 +346,8 @@ npm run preview
 npm run lint
 ```
 
-## 🐛 Troubleshooting
-
-### Problemas Comuns
-
-#### Docker não inicia
-```bash
-# Verificar se o Docker está rodando
-docker --version
-docker-compose --version
-
-# Limpar containers antigos
-docker-compose down -v
-docker system prune -a
-```
-
-#### Porta já em uso
-```bash
-# Backend (porta 8000)
-# Altere a porta no docker-compose.yml ou pare o processo usando a porta
-
-# Frontend (porta 5173)
-# Altere a porta no docker-compose.yml ou no vite.config.ts
-```
-
-#### Erro de dependências no Backend
-```bash
-# Reconstruir o ambiente
-cd backend
-rm -rf venv/  # ou pyBackEnd/
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-#### Erro de dependências no Frontend
-```bash
-# Limpar e reinstalar
-cd frontend
-rm -rf node_modules/
-rm package-lock.json
-npm install
-```
-
 ## 📄 Licença
 
 Este projeto está sob a licença especificada nos arquivos LICENSE nas pastas backend e frontend.
 
 ---
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para:
-
-1. Fazer fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abrir um Pull Request
-
----
-
-## 📧 Contato
-
-Para dúvidas ou sugestões, abra uma issue no repositório.
-
----
-
-**Desenvolvido com ❤️ para análise financeira**
-
