@@ -1,0 +1,6 @@
+[submodule "BackendAlphaTrading"]
+	path = BackendAlphaTrading
+	url = https://github.com/thales700/BackendAlphaTrading
+[submodule "FrontendAlphaTrading"]
+	path = FrontendAlphaTrading
+	url = https://github.com/thales700/FrontendAlphaTrading

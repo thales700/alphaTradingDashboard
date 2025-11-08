@@ -1,0 +1,26 @@
+# Backend
+backend/pyBackEnd/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/**/*.pyc
+backend/.pytest_cache/
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+
+# Geral
+.git/
+.gitignore
+*.log
+*.md
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
