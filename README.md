@@ -2,9 +2,11 @@
 
 Dashboard financeiro interativo com análise de volatilidade, modelos de Markov ocultos e visualização de dados de mercado.
 
-> **Nota:** Este projeto foi consolidado a partir de dois repositórios separados que foram desenvolvidos inicialmente de forma independente:
+> **Nota:** Este projeto usa **Git Submodules** para integrar o backend e frontend, que foram desenvolvidos inicialmente em repositórios separados:
 > - **Backend**: [BackendAlphaTrading](https://github.com/thales700/BackendAlphaTrading)
 > - **Frontend**: [FrontendAlphaTrading](https://github.com/thales700/FrontendAlphaTrading)
+>
+> Ao clonar este repositório, certifique-se de usar `--recurse-submodules` para baixar automaticamente os submodules, caso contrário os diretórios ficarão vazios.
 
 ## 📋 Índice
 
@@ -18,6 +20,7 @@ Dashboard financeiro interativo com análise de volatilidade, modelos de Markov 
 - [API Endpoints](#api-endpoints)
 - [Funcionalidades](#funcionalidades)
 - [Desenvolvimento](#desenvolvimento)
+- [Troubleshooting](#troubleshooting)
 - [Licença](#licença)
 
 ## 🎯 Sobre o Projeto
@@ -70,11 +73,15 @@ FinancialDash é uma aplicação web completa para análise financeira que combi
 
 Esta é a forma mais simples e consistente de executar o projeto.
 
-#### 1. Clone o repositório
+#### 1. Clone o repositório com os submodules
+
+**⚠️ Importante:** Este projeto usa Git Submodules para o backend e frontend. Use uma das opções abaixo:
+
+**Clone com submodules automaticamente (Recomendado):**
 
 ```bash
-git clone <url-do-repositorio>
-cd FinancialDash
+git clone --recurse-submodules https://github.com/thales700/alphaTradingDashboard
+cd alphaTradingDashboard
 ```
 
 #### 2. Execute com Docker Compose
@@ -125,7 +132,7 @@ docker-compose exec frontend sh
 1. **Navegue até a pasta do backend**
 
 ```bash
-cd backend
+cd BackendAlphaTrading
 ```
 
 2. **Crie um ambiente virtual Python** (recomendado)
@@ -162,7 +169,7 @@ O backend estará disponível em:
 1. **Abra um novo terminal e navegue até a pasta do frontend**
 
 ```bash
-cd frontend
+cd FrontendAlphaTrading
 ```
 
 2. **Instale as dependências**
@@ -173,7 +180,7 @@ npm install
 
 3. **Configure a variável de ambiente** (opcional)
 
-Crie um arquivo `.env` na pasta `frontend`:
+Crie um arquivo `.env` na pasta `FrontendAlphaTrading`:
 
 ```env
 VITE_API_URL=http://localhost:8000
@@ -192,7 +199,7 @@ O frontend estará disponível em: http://localhost:5173
 ```
 FinancialDash/
 │
-├── backend/                    # Backend FastAPI
+├── BackendAlphaTrading/        # Backend FastAPI
 │   ├── API/                    # Rotas da API
 │   │   └── routers/
 │   │       ├── symbol_data.py        # Endpoints de dados de símbolos
@@ -215,7 +222,7 @@ FinancialDash/
 │   ├── requirements.txt        # Dependências Python
 │   └── Dockerfile
 │
-├── frontend/                   # Frontend React
+├── FrontendAlphaTrading/       # Frontend React
 │   ├── src/
 │   │   ├── components/         # Componentes reutilizáveis
 │   │   │   ├── ui/             # Componentes UI base
@@ -241,17 +248,18 @@ FinancialDash/
 
 ## 🔌 API Endpoints
 
-### Dados de Símbolos
-- `GET /symbols/quotations` - Obter cotações de símbolos
-- Outros endpoints relacionados a dados de mercado
+### Principais Endpoints
 
-### Hidden Markov Model (HMM)
-- Endpoints para análise de regimes de mercado usando modelos de Markov
+- `GET /` - Verificação de saúde da API
+- `GET /data` - Obter cotações e dados de símbolos
+- `GET /markov_regimes` - Análise de regimes de mercado usando Hidden Markov Models (HMM)
+- `GET /garch_levels` - Análise de volatilidade usando modelos GARCH
 
-### Volatilidade
-- Endpoints para análise de volatilidade usando modelos GARCH
+### Documentação Interativa
 
-Acesse http://localhost:8000/docs para documentação completa e interativa da API.
+Acesse http://localhost:8000/docs para a documentação completa e interativa da API (Swagger UI).
+
+A API também oferece a especificação OpenAPI em: http://localhost:8000/openapi.json
 
 ## ✨ Funcionalidades
 
@@ -282,7 +290,7 @@ Acesse http://localhost:8000/docs para documentação completa e interativa da A
 #### Backend
 
 ```bash
-cd backend
+cd BackendAlphaTrading
 
 # Ativar ambiente virtual
 source venv/bin/activate  # Linux/Mac
@@ -301,7 +309,7 @@ python GenerateMockData.py
 #### Frontend
 
 ```bash
-cd frontend
+cd FrontendAlphaTrading
 
 # Instalar dependências
 npm install
@@ -324,11 +332,11 @@ npm run lint
 O projeto inclui um gerador de dados mockados para desenvolvimento:
 
 ```bash
-cd backend
+cd BackendAlphaTrading
 python GenerateMockData.py
 ```
 
-Isso irá gerar arquivos JSON em `backend/mock_data/` com dados simulados.
+Isso irá gerar arquivos JSON em `BackendAlphaTrading/mock_data/` com dados simulados.
 ```
 
 ### Frontend
@@ -344,6 +352,43 @@ npm run preview
 
 # Lint
 npm run lint
+```
+
+## 🔧 Troubleshooting
+
+### Os diretórios BackendAlphaTrading e FrontendAlphaTrading estão vazios
+
+Este é um problema comum quando o repositório é clonado sem os submodules. **Solução:**
+
+```bash
+# Execute dentro do diretório FinancialDash
+git submodule update --init --recursive
+```
+
+### Erro ao executar docker-compose: "path not found"
+
+Certifique-se de que os submodules foram baixados corretamente. Execute:
+
+```bash
+git submodule status
+```
+
+Você deve ver algo como:
+```
+ eaca55571a679fc94277508177fd4d96f85a0842 BackendAlphaTrading (heads/main)
+ e4165978d3a33189f5d417d44f54d208b7102eac FrontendAlphaTrading (heads/main)
+```
+
+Se aparecer um `-` antes dos commits, os submodules não foram inicializados. Execute:
+
+```bash
+git submodule update --init --recursive
+```
+
+### Atualizar os submodules para a versão mais recente
+
+```bash
+git submodule update --remote
 ```
 
 ## 📄 Licença

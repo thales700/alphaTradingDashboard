@@ -1,15 +1,13 @@
-version: '3.8'
-
 services:
   backend:
     build:
-      context: ./backend
+      context: ./BackendAlphaTrading
       dockerfile: Dockerfile
     container_name: financialdash-backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ./BackendAlphaTrading:/app
       - /app/pyBackEnd  # Excluir o venv do volume
     environment:
       - PYTHONUNBUFFERED=1
@@ -25,13 +23,13 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./FrontendAlphaTrading
       dockerfile: Dockerfile
     container_name: financialdash-frontend
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
+      - ./FrontendAlphaTrading:/app
       - /app/node_modules  # Excluir node_modules do volume
     environment:
       - VITE_API_URL=http://localhost:8000
