@@ -103,7 +103,7 @@ Este comando irá:
 
 #### Comandos úteis do Docker
 
-```bash
+
 # Parar os containers
 docker-compose down
 
